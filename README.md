@@ -1,28 +1,38 @@
 # audio-to-diagram
 
-Real-time instructional speech visualization system for programming labs.
+プログラミング演習向けの、講師発話リアルタイム可視化システムです。
 
-## Architecture
+## アーキテクチャ
 
-- Frontend: Next.js (TypeScript)
-- Backend: FastAPI (Python)
-- Realtime transport: WebSocket (`/ws/audio`)
-- Intermediate representation: `diagram_plan`
-- SVG output: sanitized SVG only
-- Database: PostgreSQL (Docker service)
+- フロントエンド: Next.js (TypeScript)
+- バックエンド: FastAPI (Python)
+- リアルタイム通信: WebSocket (`/ws/audio`)
+- 中間表現: `diagram_plan`
+- SVG 出力: サニタイズ済み SVG のみ
+- データベース: PostgreSQL（Docker サービス）
 
-## Quick start (Docker)
+## クイックスタート（Docker）
+
+1コマンドで起動する場合:
+
+```bash
+./start.sh
+```
+
+内部で `.env` がなければ自動作成し、`docker compose up --build` を実行します。
+
+手動で起動する場合:
 
 ```bash
 cp .env.example .env
 docker compose up --build
 ```
 
-- Frontend: `http://localhost:3000`
-- Backend health: `http://localhost:8000/health`
+- フロントエンド: `http://localhost:3000`
+- バックエンドヘルスチェック: `http://localhost:8000/health`
 - WebSocket: `ws://localhost:8000/ws/audio`
 
-## Local backend (uv)
+## ローカルでバックエンド起動（uv）
 
 ```bash
 cd backend
@@ -30,7 +40,7 @@ uv sync --extra dev
 uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-## Local tests
+## ローカルテスト
 
 ```bash
 cd backend
