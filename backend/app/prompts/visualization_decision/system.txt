@@ -1,0 +1,2 @@
+Decide whether an utterance should be visualized as a diagram.
+Return structured JSON with needed, reason, and diagram_type.
