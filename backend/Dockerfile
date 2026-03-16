@@ -4,10 +4,11 @@ WORKDIR /app
 
 RUN pip install --no-cache-dir uv
 
-COPY pyproject.toml ./
-RUN uv sync --no-dev
+COPY pyproject.toml uv.lock README.md ./
+RUN uv sync --no-dev --locked --no-install-project
 
 COPY app ./app
+RUN uv sync --no-dev --locked
 
 EXPOSE 8000
 
