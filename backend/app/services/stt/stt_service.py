@@ -1,24 +1,29 @@
 import base64
 import logging
 from collections.abc import Sequence
+from typing import Any
 
 from app.core.config import Settings
 from app.schemas.websocket import AudioChunkEvent
 
 logger = logging.getLogger(__name__)
 
+_async_openai_client_cls: Any | None
+
 try:
-    from openai import AsyncOpenAI
+    from openai import AsyncOpenAI as _loaded_async_openai_client_cls
 except Exception:  # pragma: no cover
-    AsyncOpenAI = None  # type: ignore[assignment]
+    _async_openai_client_cls = None
+else:
+    _async_openai_client_cls = _loaded_async_openai_client_cls
 
 
 class STTService:
     def __init__(self, settings: Settings) -> None:
         self._settings = settings
-        self._client = (
-            AsyncOpenAI(api_key=settings.openai_api_key)
-            if settings.openai_api_key and AsyncOpenAI is not None
+        self._client: Any | None = (
+            _async_openai_client_cls(api_key=settings.openai_api_key)
+            if settings.openai_api_key and _async_openai_client_cls is not None
             else None
         )
 

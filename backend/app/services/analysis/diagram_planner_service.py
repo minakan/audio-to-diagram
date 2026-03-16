@@ -65,21 +65,25 @@ class DiagramPlannerService:
             ),
         ]
         edges = [
-            DiagramEdge(
-                id="edge-1",
-                from_node="node-left",
-                to_node="node-mid",
-                relation="calculate",
-                label="中央を計算",
-                directed=True,
+            DiagramEdge.model_validate(
+                {
+                    "id": "edge-1",
+                    "from": "node-left",
+                    "to": "node-mid",
+                    "relation": "calculate",
+                    "label": "中央を計算",
+                    "directed": True,
+                }
             ),
-            DiagramEdge(
-                id="edge-2",
-                from_node="node-mid",
-                to_node="node-right",
-                relation="updates",
-                label="比較して範囲を更新",
-                directed=True,
+            DiagramEdge.model_validate(
+                {
+                    "id": "edge-2",
+                    "from": "node-mid",
+                    "to": "node-right",
+                    "relation": "updates",
+                    "label": "比較して範囲を更新",
+                    "directed": True,
+                }
             ),
         ]
         annotations = [
@@ -133,13 +137,15 @@ class DiagramPlannerService:
             )
             if index > 0:
                 edges.append(
-                    DiagramEdge(
-                        id=f"edge-{index}",
-                        from_node=f"node-step-{index}",
-                        to_node=node_id,
-                        relation="transitions_to",
-                        label="next",
-                        directed=True,
+                    DiagramEdge.model_validate(
+                        {
+                            "id": f"edge-{index}",
+                            "from": f"node-step-{index}",
+                            "to": node_id,
+                            "relation": "transitions_to",
+                            "label": "next",
+                            "directed": True,
+                        }
                     )
                 )
 

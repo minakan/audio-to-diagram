@@ -30,7 +30,7 @@ from app.services.stt.stt_service import STTService
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
-client_event_adapter = TypeAdapter(ClientEvent)
+client_event_adapter: TypeAdapter[ClientEvent] = TypeAdapter(ClientEvent)
 
 
 @dataclass
