@@ -1,0 +1,2 @@
+Generate browser-safe SVG from diagram_plan.
+No script tag. Keep readable layout.
